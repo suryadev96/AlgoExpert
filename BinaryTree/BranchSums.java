@@ -11,91 +11,95 @@ the root node and ends at any leaf node
 10 = 1 + 3 + 6
 11 = 1 + 3 + 7
 */
-import java.util.*;
-class TreeNode{
 
-	TreeNode left;
-	TreeNode right;
-	int data;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Queue;
 
-	public TreeNode(int data){
-		this.data = data;
-	}
+class TreeNode {
+
+    TreeNode left;
+    TreeNode right;
+    int data;
+
+    public TreeNode(int data) {
+        this.data = data;
+    }
 }
 
-class Question{
+class Question {
 
-	public static List<Integer> branchSums(TreeNode root){
-		List<Integer> sums = new ArrayList<>();
-		branchSumsUtil(root,0,sums);
-		return sums;
-	}
+    public static List<Integer> branchSums(TreeNode root) {
+        List<Integer> sums = new ArrayList<>();
+        branchSumsUtil(root, 0, sums);
+        return sums;
+    }
 
-	public static void branchSumsUtil(TreeNode node, int sum , List<Integer> sums){
+    public static void branchSumsUtil(TreeNode node, int sum, List<Integer> sums) {
 
-		if (node == null)return;
+        if (node == null) return;
 
-		//int currentSum = sum + node.data : both are same because stack stores local variable in each stack
-		 sum += node.data;
+        //int currentSum = sum + node.data : both are same because stack stores local variable in each stack
+        sum += node.data;
 
-		if (node.left == null && node.right == null){
-			sums.add(sum);
-			return;
-		}
-		branchSumsUtil(node.left,sum,sums);
-		branchSumsUtil(node.right,sum,sums);
-	}
+        if (node.left == null && node.right == null) {
+            sums.add(sum);
+            return;
+        }
+        branchSumsUtil(node.left, sum, sums);
+        branchSumsUtil(node.right, sum, sums);
+    }
 
-	public static void main(String[] args){
-		int[] arr = {1,2,3,4,5,6,7,8,9,10};
-		TreeNode root = createTreeFromArray(arr);
-		List<Integer> branchSums = branchSums(root);
-		printList(branchSums);
-	}
+    public static void main(String[] args) {
+        int[] arr = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+        TreeNode root = createTreeFromArray(arr);
+        List<Integer> branchSums = branchSums(root);
+        printList(branchSums);
+    }
 
-	public static void printList(List<Integer> branchSums){
-		for (Integer i : branchSums){
-			System.out.print(i + " ");
-		}
-	}
+    public static void printList(List<Integer> branchSums) {
+        for (Integer i : branchSums) {
+            System.out.print(i + " ");
+        }
+    }
 
-	public static void inorder(TreeNode root){
-		if(root != null){
-			inorder(root.left);
-			System.out.println(root.data + " ");
-			inorder(root.right);
-		}
-	}
+    public static void inorder(TreeNode root) {
+        if (root != null) {
+            inorder(root.left);
+            System.out.println(root.data + " ");
+            inorder(root.right);
+        }
+    }
 
-	public static TreeNode createTreeFromArray(int[] arr){
+    public static TreeNode createTreeFromArray(int[] arr) {
 
-		TreeNode root = new TreeNode(arr[0]);
+        TreeNode root = new TreeNode(arr[0]);
 
-		boolean done = false;
+        boolean done = false;
 
-		int i=1;
+        int i = 1;
 
-		Queue<TreeNode> q = new LinkedList<>();
+        Queue<TreeNode> q = new LinkedList<>();
 
-		q.add(root);
+        q.add(root);
 
-		while (!done){
+        while (!done) {
 
-			TreeNode temp = q.element();
+            TreeNode temp = q.element();
 
-			if (temp.left == null){
-				temp.left = new TreeNode(arr[i++]);
-				q.add(temp.left);
-			}else if (temp.right == null){
-				temp.right = new TreeNode(arr[i++]);
-				q.add(temp.right);
-			}else{
-				q.remove();
-			}
-			done = (i == arr.length);
-		}
-		return root;
-	}
+            if (temp.left == null) {
+                temp.left = new TreeNode(arr[i++]);
+                q.add(temp.left);
+            } else if (temp.right == null) {
+                temp.right = new TreeNode(arr[i++]);
+                q.add(temp.right);
+            } else {
+                q.remove();
+            }
+            done = (i == arr.length);
+        }
+        return root;
+    }
 
 }
 /*

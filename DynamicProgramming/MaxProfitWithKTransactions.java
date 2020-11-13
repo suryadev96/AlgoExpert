@@ -26,76 +26,76 @@ profit -> 0  0 0 0 0 0 0
 													same operations as 4					
 	space complexity = O(nk) => O(n*2) if u realize that at any point in the 2d array u are using only last 2 rows
 */
-class Question{
+class Question {
 
-	public static int maxProfitWithKTransactions(int[] prices, int k) {
-    	if (prices.length == 0) return 0;
-		int[][] profits = new int[k+1][prices.length];
-		
-		for (int t=1;t<=k;t++){
-			for (int d=1;d<prices.length;d++){
-				int maxIncluding = 0;
-				for (int p=0;p<d;p++){
-					maxIncluding = Math.max(maxIncluding, prices[d] - prices[p] + profits[t-1][p]);
-				}
-				profits[t][d] = Math.max(profits[t][d-1],maxIncluding);
-			}
-		}
-		return profits[k][prices.length-1];
-  	}
+    public static int maxProfitWithKTransactions(int[] prices, int k) {
+        if (prices.length == 0) return 0;
+        int[][] profits = new int[k + 1][prices.length];
 
-	public static int maxProfitWithKTransactionsCompEff(int[] prices, int k){
-		if (prices.length == 0){
-			return 0;
-		}
-		int[][] profits = new int[k+1][prices.length];
+        for (int t = 1; t <= k; t++) {
+            for (int d = 1; d < prices.length; d++) {
+                int maxIncluding = 0;
+                for (int p = 0; p < d; p++) {
+                    maxIncluding = Math.max(maxIncluding, prices[d] - prices[p] + profits[t - 1][p]);
+                }
+                profits[t][d] = Math.max(profits[t][d - 1], maxIncluding);
+            }
+        }
+        return profits[k][prices.length - 1];
+    }
 
-		//base case is when t = 0 , u cant make any profit = 0
-		//when d = 0, on the first day u cant make any profit = 0
+    public static int maxProfitWithKTransactionsCompEff(int[] prices, int k) {
+        if (prices.length == 0) {
+            return 0;
+        }
+        int[][] profits = new int[k + 1][prices.length];
 
-		for (int t=1; t<=k; t++){
-			int maxThusFar = Integer.MIN_VALUE;
-			for (int d=1;d<prices.length;d++){
-				maxThusFar = Math.max(maxThusFar, profits[t-1][d-1] - prices[d-1]);
-				profits[t][d] = Math.max(profits[t][d-1], maxThusFar + prices[d]);
-			}
-		}
-		return profits[k][prices.length-1];
-	}
+        //base case is when t = 0 , u cant make any profit = 0
+        //when d = 0, on the first day u cant make any profit = 0
 
-	public static int maxProfitWithKTransactionsEff(int[] prices, int k){
-		if (prices.length == 0)return 0;
+        for (int t = 1; t <= k; t++) {
+            int maxThusFar = Integer.MIN_VALUE;
+            for (int d = 1; d < prices.length; d++) {
+                maxThusFar = Math.max(maxThusFar, profits[t - 1][d - 1] - prices[d - 1]);
+                profits[t][d] = Math.max(profits[t][d - 1], maxThusFar + prices[d]);
+            }
+        }
+        return profits[k][prices.length - 1];
+    }
 
-		//this is to represent even index starting from 0
-		int[] evenProfits = new int[prices.length];
-		int[] oddProfits = new int[prices.length];
+    public static int maxProfitWithKTransactionsEff(int[] prices, int k) {
+        if (prices.length == 0) return 0;
 
-		for (int t=1;t<=k;t++){
-			int maxThusFar = Integer.MIN_VALUE;
+        //this is to represent even index starting from 0
+        int[] evenProfits = new int[prices.length];
+        int[] oddProfits = new int[prices.length];
 
-			int[] currentProfits = new int[prices.length];
-			int[] previousProfits = new int[prices.length];
+        for (int t = 1; t <= k; t++) {
+            int maxThusFar = Integer.MIN_VALUE;
 
-			if (t % 2 == 1){
-				currentProfits = oddProfits;
-				previousProfits = evenProfits;
-			}else{
-				currentProfits = evenProfits;
-				previousProfits = oddProfits;
-			}
+            int[] currentProfits = new int[prices.length];
+            int[] previousProfits = new int[prices.length];
 
-			for (int d=1;d<prices.length;d++){
-				maxThusFar = Math.max(maxThusFar, previousProfits[d-1] - prices[d-1]);
-				currentProfits[d] = Math.max(currentProfits[d-1] , maxThusFar + prices[d]);
-			}
-		}
-		return k%2 == 0 ? evenProfits[prices.length-1] : oddProfits[prices.length-1];
-	}
+            if (t % 2 == 1) {
+                currentProfits = oddProfits;
+                previousProfits = evenProfits;
+            } else {
+                currentProfits = evenProfits;
+                previousProfits = oddProfits;
+            }
 
-	public static void main(String[] args){
-		int[] prices = {5,11,3,50,60,90};
-		int k = 2;
-		int maxProfit = maxProfitWithKTransactionsEff(prices,k);
-		System.out.println(maxProfit);
-	}
+            for (int d = 1; d < prices.length; d++) {
+                maxThusFar = Math.max(maxThusFar, previousProfits[d - 1] - prices[d - 1]);
+                currentProfits[d] = Math.max(currentProfits[d - 1], maxThusFar + prices[d]);
+            }
+        }
+        return k % 2 == 0 ? evenProfits[prices.length - 1] : oddProfits[prices.length - 1];
+    }
+
+    public static void main(String[] args) {
+        int[] prices = {5, 11, 3, 50, 60, 90};
+        int k = 2;
+        int maxProfit = maxProfitWithKTransactionsEff(prices, k);
+        System.out.println(maxProfit);
+    }
 }

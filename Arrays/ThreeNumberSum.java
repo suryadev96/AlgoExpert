@@ -1,43 +1,46 @@
 /*
 non-empty array of distinct integers . find all triplets in the array that sum upto the target sum .
 */
-import java.util.*;
 
-class ThreeSum{
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
-	public static List<Integer[]> threeNumberSum(int[] array, int targetSum){
-		Arrays.sort(array);
-		List<Integer[]> triplets = new ArrayList<Integer[]>();
+class ThreeNumberSum {
 
-		for (int i=0; i<array.length-2;i++){
+    public static List<Integer[]> threeNumberSum(int[] array, int targetSum) {
+        Arrays.sort(array);
+        List<Integer[]> triplets = new ArrayList<Integer[]>();
 
-			int left = i+1;
-			int right = array.length-1;
+        for (int i = 0; i < array.length - 2; i++) {
 
-			while (left < right){
-				int currentSum = array[i] + array[left] + array[right];
-				if (currentSum == targetSum){
-					Integer[] triplet = {array[i], array[left], array[right]};
-					triplets.add(triplet);
-					left++;
-					right--;
-				} else if (currentSum < targetSum){
-					left++;
-				} else{
-					right--;
-				}
-			}
-		}
-		return triplets;
-	}
+            int left = i + 1;
+            int right = array.length - 1;
 
-	public static void main(String[] args) {
-		int[] array = {12,3,1,2,-6,5,-8,6};
-		int targetSum = 0;
-		System.out.println(threeNumberSum(array,targetSum));
-	}
+            while (left < right) {
+                int currentSum = array[i] + array[left] + array[right];
+                if (currentSum == targetSum) {
+                    Integer[] triplet = {array[i], array[left], array[right]};
+                    triplets.add(triplet);
+                    left++;
+                    right--;
+                } else if (currentSum < targetSum) {
+                    left++;
+                } else {
+                    right--;
+                }
+            }
+        }
+        return triplets;
+    }
+
+    public static void main(String[] args) {
+        int[] array = {12, 3, 1, 2, -6, 5, -8, 6};
+        int targetSum = 0;
+        System.out.println(threeNumberSum(array, targetSum));
+    }
 
 }
 /*
 
-*/
+ */

@@ -7,37 +7,40 @@ for all the subsets present in the powerset add 3
 [23]
 [123]
 */
-import java.util.*;
 
-class Question{
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
-	public static List<List<Integer>> powerset(List<Integer> arr){
-		List<List<Integer>> subsets = new ArrayList<List<Integer>>();
+class Question {
 
-		//empty set
-		subsets.add(new ArrayList<Integer>());
+    public static List<List<Integer>> powerset(List<Integer> arr) {
+        List<List<Integer>> subsets = new ArrayList<List<Integer>>();
 
-		for (Integer ele : arr){
-			int length = subsets.size();
-			for (int i=0;i<length;i++){
-				List<Integer> currentSubset = new ArrayList<Integer>(subsets.get(i));
-				currentSubset.add(ele);
-				subsets.add(currentSubset);
-			}
-		}
-		return subsets;
-	}
+        //empty set
+        subsets.add(new ArrayList<Integer>());
 
-	public static void main(String[] args){
-		List<Integer> arr = Arrays.asList(1,2,3);
-		List<List<Integer>> powerset = powerset(arr);
-		for (List<Integer> subset : powerset){
-			for (Integer i : subset){
-				System.out.print(i + " ");
-			}
-			System.out.println();
-		}
-	}
+        for (Integer ele : arr) {
+            int length = subsets.size();
+            for (int i = 0; i < length; i++) {
+                List<Integer> currentSubset = new ArrayList<Integer>(subsets.get(i));
+                currentSubset.add(ele);
+                subsets.add(currentSubset);
+            }
+        }
+        return subsets;
+    }
+
+    public static void main(String[] args) {
+        List<Integer> arr = Arrays.asList(1, 2, 3);
+        List<List<Integer>> powerset = powerset(arr);
+        for (List<Integer> subset : powerset) {
+            for (Integer i : subset) {
+                System.out.print(i + " ");
+            }
+            System.out.println();
+        }
+    }
 }
 /*
 

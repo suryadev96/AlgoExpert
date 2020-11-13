@@ -8,97 +8,97 @@ A range of numbers is defined as a set of numbers that comes right after each ot
 
 output array [2,6] represents {2,3,4,5,6} which is a range of length 5 . note numbers need not be sorted or adjacent in the input array
 */
-import java.util.*;
 
-class LongestRange{
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
 
-	public static int[] largestRange(int[] array){
-		int[] bestRange = new int[2];
+class LargestRange {
 
-		int longestLength = 0;
+    public static int[] largestRange(int[] array) {
+        int[] bestRange = new int[2];
 
-		Map<Integer,Boolean> nums = new HashMap<Integer,Boolean>();
-		for (int num:array){
-			nums.put(num,true);
-		}
+        int longestLength = 0;
 
-		for (int num:array){
+        Map<Integer, Boolean> nums = new HashMap<Integer, Boolean>();
+        for (int num : array) {
+            nums.put(num, true);
+        }
 
-			//num is already visited
-			if (!nums.get(num)){
-				continue;
-			}
+        for (int num : array) {
 
-			//num is visited
-			nums.put(num,false);
+            //num is already visited
+            if (!nums.get(num)) {
+                continue;
+            }
 
-			int currentLength = 1;
-			int left = num-1;
-			int right = num+1;
+            //num is visited
+            nums.put(num, false);
+
+            int currentLength = 1;
+            int left = num - 1;
+            int right = num + 1;
 
 
-			while (nums.containsKey(left)){
-				nums.put(left,false);
-				currentLength++;
-				left--;
-			}
+            while (nums.containsKey(left)) {
+                nums.put(left, false);
+                currentLength++;
+                left--;
+            }
 
-			while(nums.containsKey(right)){
-				nums.put(right,false);
-				currentLength++;
-				right++;
-			}
+            while (nums.containsKey(right)) {
+                nums.put(right, false);
+                currentLength++;
+                right++;
+            }
 
-			if (currentLength > longestLength){
-				longestLength = currentLength;
-				bestRange = new int[] {left + 1, right - 1};
-			}
-		}
-		return bestRange;
-	}
+            if (currentLength > longestLength) {
+                longestLength = currentLength;
+                bestRange = new int[]{left + 1, right - 1};
+            }
+        }
+        return bestRange;
+    }
 
-	public static void main(String[] args) {
-		int[] nums = {1,11,3,0,15,5,2,4,10,7,12,6};
-		int[] range = largestRange(nums);
-		System.out.println(range[0] + "-" + range[1]);
-	}
-}
+    //My solution
+    public static int[] largestRangeMySol(int[] array) {
+        int[] longestRange = new int[2];
+        int longestLength = 0;
 
-//my solution
-import java.util.*;
+        Set<Integer> set = new HashSet<>();
 
-class Program {
-  public static int[] largestRange(int[] array) {
-    int[] longestRange = new int[2];
-		int longestLength = 0;
-		
-		Set<Integer> set = new HashSet<>();
-		
-		for (int i=0;i<array.length;i++){
-			set.add(array[i]);
-		}
-		
-		for (int i=0;i<array.length;i++){
-			
-			int num = array[i];
-			
-			if (set.contains(num-1)){
-				continue;
-			}
-			
-			int len = 1;
-			int start = num;
-			int end = num+1;
-			while (set.contains(end)){
-				len++;
-				end++;
-			}
-			
-			if (len > longestLength){
-				longestLength = len;
-				longestRange = new int[]{start,end-1};
-			}
-		}
-    return longestRange;
-  }
+        for (int i = 0; i < array.length; i++) {
+            set.add(array[i]);
+        }
+
+        for (int i = 0; i < array.length; i++) {
+
+            int num = array[i];
+
+            if (set.contains(num - 1)) {
+                continue;
+            }
+
+            int len = 1;
+            int start = num;
+            int end = num + 1;
+            while (set.contains(end)) {
+                len++;
+                end++;
+            }
+
+            if (len > longestLength) {
+                longestLength = len;
+                longestRange = new int[]{start, end - 1};
+            }
+        }
+        return longestRange;
+    }
+
+    public static void main(String[] args) {
+        int[] nums = {1, 11, 3, 0, 15, 5, 2, 4, 10, 7, 12, 6};
+        int[] range = largestRange(nums);
+        System.out.println(range[0] + "-" + range[1]);
+    }
 }

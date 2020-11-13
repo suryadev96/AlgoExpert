@@ -15,90 +15,91 @@ left-right order
 
 4 <-> 2 <-> 7 <-> 5 <-> 8 <-> 1 <-> 6 <-> 3 //the leftmost node with value 4
 */
-class TreeNode{
+class TreeNode {
 
-	TreeNode left;
-	TreeNode right;
-	int data;
+    TreeNode left;
+    TreeNode right;
+    int data;
 
-	TreeNode(int data){
-		this.data = data;
-	}
+    TreeNode(int data) {
+        this.data = data;
+    }
 }
-class Question{
 
-	public static TreeNode flattenBinaryTree(TreeNode root){
-		flattenTree(root);
-		return getLeftMost(root);
-	}
+class Question {
 
-	public static TreeNode getLeftMost(TreeNode node){
-		while (node.left != null){
-			node = node.left;
-		}
-		return node;
-	}
+    public static TreeNode flattenBinaryTree(TreeNode root) {
+        flattenTree(root);
+        return getLeftMost(root);
+    }
 
-	//at any given node in the inorder-traversal order, the node immediately to its left is the rightmost node of its left subtree
-	//and the node immediately to its right is the leftmost node of its right subtree
-	public static TreeNode[] flattenTree(TreeNode node){
+    public static TreeNode getLeftMost(TreeNode node) {
+        while (node.left != null) {
+            node = node.left;
+        }
+        return node;
+    }
 
-		TreeNode leftMost; //in the right subtree
-		TreeNode rightMost; //in the left subtree
+    //at any given node in the inorder-traversal order, the node immediately to its left is the rightmost node of its left subtree
+    //and the node immediately to its right is the leftmost node of its right subtree
+    public static TreeNode[] flattenTree(TreeNode node) {
 
-		
-		if (node.left == null){
-			leftMost = node;
-		}else{
-			TreeNode[] leftAndRightMostNodes = flattenTree(node.left);
-			connectNodes(leftAndRightMostNodes[1],node);
-			leftMost = leftAndRightMostNodes[0];
-		}
+        TreeNode leftMost; //in the right subtree
+        TreeNode rightMost; //in the left subtree
 
 
-		if (node.right == null){
-			rightMost = node;
-		}else{
-			TreeNode[] leftAndRightMostNodes = flattenTree(node.right);
-			connectNodes(node,leftAndRightMostNodes[0]);
-			rightMost = leftAndRightMostNodes[1];
-		}
-		return new TreeNode[]{leftMost,rightMost};
-	}
+        if (node.left == null) {
+            leftMost = node;
+        } else {
+            TreeNode[] leftAndRightMostNodes = flattenTree(node.left);
+            connectNodes(leftAndRightMostNodes[1], node);
+            leftMost = leftAndRightMostNodes[0];
+        }
 
-	public static void connectNodes(TreeNode left, TreeNode right){
-		left.right = right;
-		right.left = left;
-	}
 
-	public static void main(String[] args){
-		TreeNode root = new TreeNode(1);
-		root.left = new TreeNode(2);
-		root.right = new TreeNode(3);
-		root.left.left = new TreeNode(4);
-		root.left.right = new TreeNode(5);
-		root.left.right.left = new TreeNode(7);
-		root.left.right.right = new TreeNode(8);
-		root.right = new TreeNode(3);
-		root.right.left = new TreeNode(6);
+        if (node.right == null) {
+            rightMost = node;
+        } else {
+            TreeNode[] leftAndRightMostNodes = flattenTree(node.right);
+            connectNodes(node, leftAndRightMostNodes[0]);
+            rightMost = leftAndRightMostNodes[1];
+        }
+        return new TreeNode[]{leftMost, rightMost};
+    }
 
-		root = flattenBinaryTree(root);
-		linearTraversal(root);
-	}
+    public static void connectNodes(TreeNode left, TreeNode right) {
+        left.right = right;
+        right.left = left;
+    }
 
-	public static  void linearTraversal(TreeNode root){
-		while(root.right != null){
-			System.out.print(root.data + "-->");
-			root = root.right;
-		}
-		System.out.println(root.data);
+    public static void main(String[] args) {
+        TreeNode root = new TreeNode(1);
+        root.left = new TreeNode(2);
+        root.right = new TreeNode(3);
+        root.left.left = new TreeNode(4);
+        root.left.right = new TreeNode(5);
+        root.left.right.left = new TreeNode(7);
+        root.left.right.right = new TreeNode(8);
+        root.right = new TreeNode(3);
+        root.right.left = new TreeNode(6);
 
-		while (root.left != null){
-			System.out.print(root.data + "-->");
-			root = root.left;
-		}
-		System.out.println(root.data);
-	}
+        root = flattenBinaryTree(root);
+        linearTraversal(root);
+    }
+
+    public static void linearTraversal(TreeNode root) {
+        while (root.right != null) {
+            System.out.print(root.data + "-->");
+            root = root.right;
+        }
+        System.out.println(root.data);
+
+        while (root.left != null) {
+            System.out.print(root.data + "-->");
+            root = root.left;
+        }
+        System.out.println(root.data);
+    }
 }
 /*
 4-->2-->7-->5-->8-->1-->6-->3

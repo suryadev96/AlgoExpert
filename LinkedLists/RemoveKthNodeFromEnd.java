@@ -1,36 +1,37 @@
-class LinkedList{
+class LinkedList {
 
-	int value;
-	LinkedList next = null;
+    int value;
+    LinkedList next = null;
 
-	public LinkedList(int value){
-		this.value = value;
-	}
+    public LinkedList(int value) {
+        this.value = value;
+    }
 
 }
-class Question{
 
-	public static void removeKthNodeFromEnd(LinkedList head, int k){
-		int counter = 1;
-		LinkedList first = head;
-		LinkedList second = head;
+class Question {
 
-		while (counter <= k){
-			second = second.next;
-			counter++;
-		}
+    public static void removeKthNodeFromEnd(LinkedList head, int k) {
+        int counter = 1;
+        LinkedList first = head;
+        LinkedList second = head;
 
-		if (second == null){
-			head.value = head.next.value;
-			head.next = head.next.next;
-			return;
-		}
+        while (counter <= k) {
+            second = second.next;
+            counter++;
+        }
 
-		while (second.next != null){
-			second = second.next;
-			first = first.next;
-		}
-		first.next = first.next.next;
-	}
+        if (second == null) {
+            head.value = head.next.value;
+            head.next = head.next.next;
+            return;
+        }
+
+        while (second.next != null) {
+            second = second.next;
+            first = first.next;
+        }
+        first.next = first.next.next;
+    }
 
 }
