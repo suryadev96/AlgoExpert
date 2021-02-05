@@ -261,7 +261,7 @@ class Graph {
 
 class Program {
     public static int airportConnections(
-            List<String> airports, List<List<String>> routes, String startingAirport) {
+        List<String> airports, List<List<String>> routes, String startingAirport) {
         Graph graph = new Graph(airports, routes);
         return graph.minimumEdges(startingAirport);
     }

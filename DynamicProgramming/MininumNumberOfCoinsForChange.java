@@ -37,9 +37,9 @@ class MinimumNumberOfCoinsForChange {
         //if knapsack capacity is 0, u don't need any items
         dp[0] = 0;
 
-        //dp[i][j] is min weights required to achieve weight j with first i weights
-        //dont consider current weight or consider current weight
-        //dp[i][j] = dp[i-1][j] || dp[i][j-weights[i-1]]
+        //dp[i][j] is min coints required to achieve change j with first i coins
+        //dont consider current coin or consider current coin
+        //dp[i][j] = dp[i-1][j] || dp[i][j-denoms[i-1]]
 
         for (int i = 0; i < denoms.length; i++) {
             for (int j = denoms[i]; j <= n; j++) {

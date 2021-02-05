@@ -138,10 +138,11 @@ class Program {
                     l++;
                     continue;
                 }
-                wMap.put(lc, wMap.get(lc) - 1);
-                if (wMap.get(lc) < tMap.get(lc)) {
+
+                if (wMap.get(lc) == tMap.get(lc)){
                     formed--;
                 }
+                wMap.put(lc, wMap.get(lc) - 1);
                 l++;
             }
             r++;

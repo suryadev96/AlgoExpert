@@ -103,7 +103,7 @@ _test_this is a _testtest_ to see if _testestest_ it works
 */
 
 //my solution
-        import java.util.*;
+import java.util.*;
 
 class Interval {
     int start;

@@ -1,7 +1,6 @@
 /*
 
  */
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -45,10 +44,10 @@ class Program {
                     count++;
                 }
                 char lc = bigString.charAt(l);
-                winMap.put(lc, winMap.get(lc) - 1);
-                if (winMap.get(lc) < targetCharCounts.get(lc)) {
+                if (winMap.get(lc) == targetCharCounts.get(lc)) {
                     formed--;
                 }
+                winMap.put(lc, winMap.get(lc) - 1);
                 l++;
             }
             r++;
